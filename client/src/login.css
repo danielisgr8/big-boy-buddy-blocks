@@ -1,7 +1,18 @@
-.username{
-    width: 25%;
+.login-flex{
+    background: grey;
+    display: flex;
+    flex-direction: column;
 }
 
-.login{
+.login-form{
+    margin: auto;
+    width: 20%;
     
+}
+.bbbb-title{
+    margin: auto;
+    text-align: center;
+}
+.play{
+    margin: auto;
 }
