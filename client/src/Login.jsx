@@ -18,8 +18,9 @@ export default class Login extends React.Component{
             console.log(this.state.myName);
         }
 
-        handleSubmit(){
+        handleSubmit(event){
             console.log('A name was submitted: ' + this.state.myName);
+            event.preventDefault();
         }
 
     render(){
