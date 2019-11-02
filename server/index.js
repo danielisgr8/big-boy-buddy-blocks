@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
 const WebSocketEventManager = require("./websocket-event-manager");
-const events = require("./events");
+const events = require("../client/src/events");
 const Player = require("./player");
 
 const port = 1234;
@@ -19,7 +19,7 @@ wsem.addEventHandler(events.c_join, (ws, data) => {
   console.log(`Player join: ${data.name}`);
   players[ws] = new Player(id, data.name);
 
-  wsem.broadcastMessage(events.playerJoined, { name: data.name }, ws);
+  wsem.broadcastMessage(events.s_playerJoined, { name: data.name }, ws);
 });
 
 wsem.addEventHandler(events.c_pieceMoved, (ws, data) => {

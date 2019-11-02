@@ -1,5 +1,3 @@
-const events = require("./events");
-
 class WebSocketEventManager {
   constructor(wss) {
     wss.on("connection", (ws) => {
