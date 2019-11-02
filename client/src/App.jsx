@@ -1,10 +1,10 @@
 import React from 'react';
 import './App.css';
-import Drawing from './DrawObject';
+import Board from './Board.jsx';
 
 function App() {
   return (
-    <Drawing drawing="5"></Drawing>
+    <Board drawing="3"></Board>
   );
   
 }
