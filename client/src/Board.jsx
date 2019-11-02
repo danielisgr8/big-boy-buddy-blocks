@@ -1,44 +1,45 @@
-import React from 'react';
-import Draw from './Draw'
+import React, { useRef, useEffect } from "react";
+import Draw from "./Draw";
 import { BoardState, movements, blockTypes } from './board-state/board-state';
 
-export default class Board extends React.Component {
-  constructor(props) {
-    super(props);
+const Board = () => {
+  const canvasRef = useRef();
+  const boardRef = useRef();
+  const boardStateRef = useRef();
+  const myBlockRef = useRef();
 
-    this.handleClick = this.handleClick.bind(this);
-  }
-  
-    componentDidMount() {
-        const canvas = this.refs.board
-        const ctx = canvas.getContext("2d")
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
 
-        const cellWidth = canvas.width / 30;
-        const cells = canvas.width / cellWidth;
-        const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
-        
-        board.drawBoard();
+    const cellWidth = canvas.width / 30;
+    const cells = canvas.width / cellWidth;
+    const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
+    boardRef.current = board;
+    
+    board.drawBoard();
 
-        const boardState = new BoardState(cells, cells);
-        const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
-        board.drawState(boardState.state);
+    const boardState = new BoardState(cells, cells);
+    boardStateRef.current = boardState;
+    const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+    myBlockRef.current = myBlock;
+    board.drawState(boardState.state);
+  }, []);
 
-        this.setState({ board, boardState, myBlock });
-      }
+  return (
+    <div>
+      <canvas
+        ref={canvasRef}
+        width={0.45 * window.innerWidth}
+        height={0.45 * window.innerWidth}
+        onClick={(e) => {
+          const boardState = boardStateRef.current;
+          const myBlock = myBlockRef.current;
+          const board = boardRef.current;
+          boardState.moveBlock(myBlock, movements.right);
+          board.drawState(boardState.state);
+        }}/>
+   </div>);
+};
 
-      handleClick(event) {
-        this.state.boardState.moveBlock(this.state.myBlock, movements.right);
-        this.state.board.drawState(this.state.boardState.state);
-      }
-     
-      render(){
-        return (
-         <div>
-         <canvas ref="board"
-          width={.45*window.innerWidth}
-          height={.45*window.innerWidth}
-          className="canvas"
-          onClick={this.handleClick}/>
-        </div>);
-      }
-}
+export default Board;

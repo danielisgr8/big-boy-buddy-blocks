@@ -34,7 +34,6 @@ class Draw {
         this.ctx.lineTo(pixelX+this.cellWidth, pixelY+this.cellWidth);
         this.ctx.lineTo(pixelX+this.cellWidth, pixelY);
         this.ctx.lineTo(pixelX, pixelY);
-        this.ctx.stroke();
     }
 
     drawState(state) {
@@ -48,6 +47,7 @@ class Draw {
                 }
             }
         }
+        this.ctx.stroke();
     }
 
     drawBoard() {
