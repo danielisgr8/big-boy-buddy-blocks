@@ -9,10 +9,9 @@ function App() {
       {isLoggedIn ? (
         <Login/>
       ) : (
-        <Login/>
+        <Board drawing="3"></Board>
       )}
     </div> 
   );
 }
-
 export default App;
