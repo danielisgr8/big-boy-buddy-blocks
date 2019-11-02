@@ -1,31 +1,44 @@
 import React from 'react';
 import Draw from './Draw'
+import { BoardState, movements, blockTypes } from './board-state/board-state';
 
 export default class Board extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClick = this.handleClick.bind(this);
+  }
   
     componentDidMount() {
         const canvas = this.refs.board
-
         const ctx = canvas.getContext("2d")
 
-        const board = new Draw(ctx, canvas.width, canvas.height)
+        const cellWidth = canvas.width / 30;
+        const cells = canvas.width / cellWidth;
+        const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
         
         board.drawBoard();
 
-        var i;
-        for(i = 0; i<4; i++){
-            const x = Math.floor(Math.random() * 27);
-            const y = 0;
-            
-            board.drawPiece(Math.floor((Math.random() * 5) +1), x, y)
-        }
+        const boardState = new BoardState(cells, cells);
+        const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+        board.drawState(boardState.state);
+
+        this.setState({ board, boardState, myBlock });
       }
-     
+
+      handleClick(event) {
+        this.state.boardState.moveBlock(this.state.myBlock, movements.right);
+        this.state.board.drawState(this.state.boardState.state);
+      }
      
       render(){
         return (
          <div>
-         <canvas ref="board" width={.45*window.innerWidth} height={.45*window.innerWidth} className="canvas"/>
+         <canvas ref="board"
+          width={.45*window.innerWidth}
+          height={.45*window.innerWidth}
+          className="canvas"
+          onClick={this.handleClick}/>
         </div>);
       }
 }
