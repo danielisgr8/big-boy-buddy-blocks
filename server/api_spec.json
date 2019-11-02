@@ -1,0 +1,64 @@
+[
+  {
+    "evenName": "c_join",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "eventName": "c_playerLeft"
+  },
+  {
+    "eventName": "s_playerLeft",
+    "parameters": [
+      {
+        "name": "player",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "eventName": "s_playerJoined",
+    "parameters": [
+      {
+        "name": "player",
+        "type": "string"
+      }
+    ]
+  },
+  {
+    "eventName": "s_updatePiece",
+    "source": "server",
+    "parameters": [
+      {
+        "name": "player",
+        "type": "string"
+      },
+      {
+        "name": "position",
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "description": "[x, y]"
+        }
+      }
+    ]
+  },
+  {
+    "eventName": "c_pieceMoved",
+    "source": "client",
+    "parameters": [
+      {
+        "name": "position",
+        "type": "array",
+        "items": {
+          "type": "integer",
+          "description": "[x, y]"
+        }
+      }
+    ]
+  }
+]
