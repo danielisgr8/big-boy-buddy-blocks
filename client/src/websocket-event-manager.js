@@ -1,7 +1,7 @@
 class WebSocketEventManager {
   constructor(url, onOpen) {
     this.events = {};
-    this.ws = new WedSocket(url);
+    this.ws = new WebSocket(url);
 
     this.ws.onopen = () => {
       console.log(`WebSockete opened at ${url}`);
@@ -9,7 +9,7 @@ class WebSocketEventManager {
     };
 
     this.ws.onmessage = (message) => {
-      message = JSON.parse(message);
+      message = JSON.parse(message.data);
       if(!message.event) {
         console.log(`Invalid message received: ${message}`);
         return;

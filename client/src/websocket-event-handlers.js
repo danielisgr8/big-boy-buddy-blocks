@@ -1,5 +1,5 @@
 import WebSocketEventManager from "./websocket-event-manager";
-import events from "../../shared/events";
+import events from "./events";
 
 /*
   All this code will be run inside some React component once
