@@ -31,6 +31,8 @@ const Board = () => {
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
+
+    setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
     
     render();
   }, []);
@@ -45,11 +47,15 @@ const Board = () => {
         onKeyDown={(e) => {
           let movement = null;
           switch(e.key) {
+            
             case "ArrowRight":
               movement = movements.right;
               break;
             case "ArrowLeft":
               movement = movements.left;
+              break;
+            case "ArrowDown":
+              movement = movements.softDrop;
               break;
           }
           if(movement === null) return;

@@ -19,11 +19,14 @@ class Draw {
         else if( color === 'red'){
             this.ctx.fillStyle = "#FF0000";
         }
-        else if(color === 'orange'){
-            this.ctx.fillStyle = "#FF8C00";
+        else if(color === 'yellow'){
+            this.ctx.fillStyle = "#FFFF00";
         }
         else if(color === 'green'){
-            this.ctx.fillStyle = "#006400";
+            this.ctx.fillStyle = "#00FF00";
+        }
+        else if(color === 'purple'){
+            this.ctx.fillStyle = "#800080";
         }
         else{
             this.ctx.fillStyle = "#FFFFFF";
