@@ -31,7 +31,7 @@ const Login = ({onSubmit}) => {
                 Green
             </Menu.Item>
             <Menu.Item key="Yellow">
-                Black
+                Yellow
             </Menu.Item>
             <Menu.Item key="Purple">
                 Purple

@@ -25,7 +25,7 @@ const Board = () => {
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
-    setInterval(function(){board.drawState(boardState.state);}, 100); //Should be around 60 FPS
+    setInterval(function(){board.drawState(boardState.state);}, 100); //Should be around 60 FPS for the refresh rate
     //board.drawState(boardState.state);
   }, []);
 
@@ -45,6 +45,9 @@ const Board = () => {
               break;
             case "ArrowLeft":
               movement = movements.left;
+              break;
+            case "ArrowDown":
+              movement = movements.softDrop;
               break;
           }
           if(movement === null) return;

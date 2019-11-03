@@ -68,6 +68,13 @@ export class BoardState {
           point.x++;
           this.state[point.y][point.x] = block;
         });
+      //Adding the downward movement -> not sure what is going on yet
+      case movements.down:
+        block.points.forEach((point) => {
+          this.state[point.y][point.x] = null;
+          point.y--;
+          this.state[point.y][point.x] = block;
+        });
         break;
     }
     return true;
