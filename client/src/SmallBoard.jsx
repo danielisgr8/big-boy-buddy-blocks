@@ -1,6 +1,7 @@
 import React,{ useRef, useEffect }from 'react';
 import Draw from "./Draw";
 import { BoardState, blockTypes } from './board-state/board-state';
+import Callback from './Callback';
 
 export const SmallBoard = ({color}) => {
     console.log("Small Board->", color );
@@ -9,6 +10,8 @@ export const SmallBoard = ({color}) => {
     const boardStateRef = useRef();
     const myBlockRef = useRef();
 
+
+    
     const render = () => {
         const board = boardRef.current;
         const boardState = boardStateRef.current;
@@ -31,13 +34,21 @@ export const SmallBoard = ({color}) => {
         const boardState = new BoardState(cells, cells);
         boardStateRef.current = boardState;
         console.log("SmallBoard Color:", color);
-        console.log("SmallBoard Color the Color", color.color);
-        const myBlock = boardState.addBlock(blockTypes.S, color, "greg");
+        const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", true);
         myBlockRef.current = myBlock;
         
+        Callback.setPreviewCallback(() => {
+          
+          const blockType = myBlockRef.current.piece;
+          console.log(blockType);
+          boardState.clear();
+          myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg", true);
+          return blockType;
+        });
         render();
       }, []);
 
+      
       return (
           <canvas style = {{margin:"auto"}} ref={canvasRef} width={0.05 * window.innerWidth} height={0.05 * window.innerWidth}/>);
 };
