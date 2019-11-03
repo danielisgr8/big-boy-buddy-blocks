@@ -10,8 +10,6 @@ const Login = ({onSubmit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("Submitting name: " + myName);
-        console.log("Submitting color: " + myColor);
         onSubmit(myName, myColor);
     }
     
@@ -31,7 +29,7 @@ const Login = ({onSubmit}) => {
                 Green
             </Menu.Item>
             <Menu.Item key="Yellow">
-                Black
+                Yellow
             </Menu.Item>
             <Menu.Item key="Purple">
                 Purple
