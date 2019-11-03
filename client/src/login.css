@@ -2,6 +2,7 @@
     background: #94C3EB;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .login-form{
@@ -11,6 +12,21 @@
     width: 20%;
     
 }
+.ant-layout-footer{
+    position: fixed;
+    bottom: 0px;
+    left:0px;
+    right:0px;
+}
+
+.ant-layout-content{
+    position: fixed;
+    bottom: 8%;
+    height: 84%;
+    left:0px;
+    right:0px;
+} 
+
 .color-dropdown{
     margin: auto;
     text-align: center;

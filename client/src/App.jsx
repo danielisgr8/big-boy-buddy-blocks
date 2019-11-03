@@ -7,7 +7,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [playerName, setPlayerName] = useState("Player");
-  const [playerColor, setPlayerColor] = useState("Forgot a Color");
+  const [playerColor, setPlayerColor] = useState("Orange");
   return(
     <div>
       {isLoggedIn ? (

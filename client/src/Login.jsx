@@ -10,7 +10,13 @@ const Login = ({onSubmit}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        console.log("before change color", myColor);
+        if(myColor == "Select a Color"){
+            setMyColor("Orange");
+        }
+        console.log("changed color", myColor);
         onSubmit(myName, myColor);
+    
     }
     
     function handleMenuClick(e){
@@ -40,8 +46,7 @@ const Login = ({onSubmit}) => {
 
     return(
         <>
-        <Layout>
-            <Layout>
+            <Layout className = "layout">
                 <Header style = {{backgroundColor: "#367BA3", textAlign: "center",}}><Title style ={{color: "white"}}>Big Boy Buddy Blocks</Title></Header>
                 <Content>
                 <span className = "login-flex">
@@ -65,11 +70,10 @@ const Login = ({onSubmit}) => {
                     </form>
                 </span>
                 </Content>
-                <Footer style = {{backgroundColor: "#367BA3", textAlign: "right", bottom: "0px"}}>
+                <Footer style = {{ backgroundColor: "#367BA3", textAlign: "right", bottom: "0px"}}>
                     ©Code Monkeys. Developed by Daniel Schubert, Jake Tener, Isaac Spanier
                 </Footer>
             </Layout>
-        </Layout> 
            
         </>
    )
