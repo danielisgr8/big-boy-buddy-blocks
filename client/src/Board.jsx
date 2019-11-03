@@ -29,7 +29,7 @@ const Board = () => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+    const myBlock = boardState.addBlock(blockTypes.T, "red", "greg");
     myBlockRef.current = myBlock;
 
     setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
@@ -53,6 +53,9 @@ const Board = () => {
               break;
             case "ArrowLeft":
               movement = movements.left;
+              break;
+            case "ArrowUp":
+              movement = movements.rotateCW;
               break;
             case "ArrowDown":
               movement = movements.softDrop;
