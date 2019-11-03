@@ -1,4 +1,5 @@
 import Point from "./point";
+import {blockTypes} from './board-state';
 
 class Block {
     constructor(piece, color, user, points) {
@@ -10,19 +11,19 @@ class Block {
         this.setRotationPoint();
     }
     setRotationPoint(){
-        if(this.piece === 0){
+        if(this.piece === blockTypes.I){
             this.rotationPoint = this.points[1];
         }
-        else if(this.piece === 1){
+        else if(this.piece === blockTypes.O){
             this.rotationPoint = null;
         }
-        else if(this.piece === 2){
+        else if(this.piece === blockTypes.T){
             this.rotationPoint = this.points[1];
         }
-        else if(this.piece === 3){
+        else if(this.piece === blockTypes.S){
             this.rotationPoint = this.points[1];
         }
-        else if(this.piece === 6){
+        else if(this.piece === blockTypes.L){
             this.rotationPoint = this.points[1];
         }
     }
