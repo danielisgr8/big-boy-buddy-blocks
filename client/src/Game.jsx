@@ -3,6 +3,7 @@ import Board from './Board';
 import UserUI from './UserUI';
 import WebSocketEventManager from "./websocket-event-manager";
 import events from "./events";
+import './game.css';
 
 const Game = ({myName, myColor}) => {
     const [playerScore, setPlayerScore] = useState(0);
@@ -33,7 +34,7 @@ const Game = ({myName, myColor}) => {
     }
 
     return(
-        <span>
+        <span classname="game">
             {playState && <Board drawing="3" wsem={wsemRef.current} />}
             <UserUI myName={myName} myScore={playerScore} myColor={myColor} />    
         </span>

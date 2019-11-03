@@ -57,6 +57,7 @@ export class BoardState {
   moveBlock(block, movement) {
     if(!this.checkCollision(block, movement)) return false;
     switch(movement) {
+      
       case movements.left:
         block.points.forEach((point) => {
           this.state[point.y][point.x] = null;
@@ -71,6 +72,16 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
+      case movements.softDrop:
+        block.points.forEach((point)=> {
+          this.state[point.y][point.x] = null;
+          point.y++;
+        });
+        block.points.forEach((point)=> {
+          this.state[point.y][point.x] = block;
+        });
+        break;
+        
     }
     this.wsem.sendMessage(events.c_blockMoved, { movement });
     return true;
@@ -97,7 +108,13 @@ export class BoardState {
       case movements.rotateCW:
         break;
       case movements.softDrop:
-        break;
+        return block.points.every((point)=> {
+          if(point.y >= this.height-1){
+            return false;
+          }
+          const shiftedBlock = this.state[point.y + 1][point.x];
+          return (!shiftedBlock || shiftedBlock === block);
+        });
       case movements.inPlace:
         return block.points.every((point) => {
           const currentBlock = this.state[point.y][point.x];
