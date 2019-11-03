@@ -1,6 +1,9 @@
+const uuid = require("uuid");
+
 class WebSocketEventManager {
   constructor(wss) {
     wss.on("connection", (ws) => {
+      ws.id = uuid.v4();
       ws.on("message", (message) => {
         this.handleEvent(ws, message);
       });

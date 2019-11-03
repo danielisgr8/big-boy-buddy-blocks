@@ -15,17 +15,17 @@ let playerCount = 0;
 const players = {};
 
 wsem.addEventHandler(events.c_join, (ws, data) => {
-  const id = playerCount++;
-  console.log(`Player join: ${data.name} (${id})`);
-  if(id) wsem.sendMessage(ws, events.s_playersJoined, { names: Object.keys(players).map(key => players[key].name) });
-  players[ws] = new Player(id, data.name);
+  playerCount++;
+  console.log(`Player join: ${data.name}`);
+  if(playerCount > 1) wsem.sendMessage(ws, events.s_playersJoined, { names: Object.keys(players).map(key => players[key].name) });
+  players[ws.id] = new Player(data.name);
 
   wsem.broadcastMessage(events.s_playersJoined, { names: [data.name] }, ws);
 });
 
 wsem.addEventHandler(events.c_blockMoved, (ws, data) => {
   const outgoingData = {
-    player: players[ws].name,
+    player: players[ws.id].name,
     movement: data.movement
   }
   wsem.broadcastMessage(events.s_blockMoved, outgoingData, ws);
@@ -33,7 +33,7 @@ wsem.addEventHandler(events.c_blockMoved, (ws, data) => {
 
 wsem.addEventHandler(events.c_newBlock, (ws, data) => {
   const outgoingData = {
-    player: players[ws].name,
+    player: players[ws.id].name,
     blockType: data.blockType,
     points: data.points
   }
@@ -42,7 +42,7 @@ wsem.addEventHandler(events.c_newBlock, (ws, data) => {
 });
 
 wsem.addEventHandler(events.c_playerLeft, (ws) => {
-  wsem.broadcastMessage(events.s_playerLeft, { name: players[ws].name });
+  wsem.broadcastMessage(events.s_playerLeft, { name: players[ws.id].name });
 });
 
 // TODO: make player manager
