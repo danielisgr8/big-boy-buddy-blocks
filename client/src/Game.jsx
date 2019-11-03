@@ -14,7 +14,7 @@ const Game = ({myName, myColor}) => {
     const wsemRef = useRef();
 
     useEffect(() => {
-        wsemRef.current = new WebSocketEventManager("ws://localhost:1234", () => {
+        wsemRef.current = new WebSocketEventManager(`ws://${window.location.hostname}:1234`, () => {
             console.log("runing')");
             wsemRef.current.sendMessage(events.c_join, { name: myName });
         });
