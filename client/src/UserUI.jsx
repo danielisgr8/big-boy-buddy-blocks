@@ -21,7 +21,7 @@ const UserUI = ({myName, myScore, myColor}) => {
 
 
     function renderGameButton(){
-        console.log("Hello");
+        setIsGameRunning(true);
     }
     function chooseProfile(){ 
         if(myColor == "Green"){
@@ -49,7 +49,7 @@ const UserUI = ({myName, myScore, myColor}) => {
                 <SmallBoard color = {myColor}/>
             </span>
             <br/>
-            {(isGameRunning === true) ? null : <Button onClick = {renderGameButton()}>Start The Game</Button>  }
+            {(isGameRunning === true) ? null : <Button onClick = {renderGameButton}>Start The Game</Button>  }
         </span>
     )
 }
