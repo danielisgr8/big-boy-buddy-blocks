@@ -10,6 +10,7 @@ const Game = ({myName, myColor}) => {
     function incrementPlayerScore(){
         setPlayerScore(playerScore++);
     }
+    
     return(
         <span className = "game">
             <Board color = {myColor}/>

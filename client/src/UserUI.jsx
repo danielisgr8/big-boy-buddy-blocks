@@ -6,8 +6,7 @@ import Green from './Profiles/Shrek.png';
 import Blue from './Profiles/CookieMonster.jpg';
 import Purple from './Profiles/Barney.jpg';
 import Yellow from './Profiles/Homer.jpg';
-import Board from './Board';
-import Draw from "./Draw";
+import Orange from './Profiles/Chester.jpg';
 import {SmallBoard} from './SmallBoard';
 
 
@@ -38,6 +37,9 @@ const UserUI = ({myName, myScore, myColor}) => {
         }
         else if(myColor == "Yellow"){
             return <img src = {Yellow} className = "profile" alt = "Profile"/>
+        } 
+        else {
+            return <img src = {Orange} className = "profile" alt = "Profile"/>
         }
     }
 
