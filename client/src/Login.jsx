@@ -5,12 +5,13 @@ const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
 
 const Login = ({onSubmit}) => {
-    const [myName, setMyName] = useState("I Forgot My Name");
+    const [myName, setMyName] = useState("John Doe");
     const [myColor, setMyColor] = useState("Select a Color");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(myName, myColor);
+        console.log("changed color", myColor);
+        onSubmit(myName, myColor);    
     }
     
     function handleMenuClick(e){
@@ -34,15 +35,17 @@ const Login = ({onSubmit}) => {
             <Menu.Item key="Purple">
                 Purple
             </Menu.Item>
+            <Menu.Item key="Orange">
+                Orange
+            </Menu.Item>
         </Menu>
     );
 
 
     return(
         <>
-        <Layout>
-            <Layout>
-                <Header style = {{backgroundColor: "#367BA3", textAlign: "center",}}><Title style ={{color: "white"}}>Big Boy Buddy Blocks</Title></Header>
+            <Layout className = "layout">
+                <Header style = {{ backgroundColor: "#367BA3", textAlign: "center"}}><Title style ={{color: "white"}}>Big Boy Buddy Blocks</Title></Header>
                 <Content>
                 <span className = "login-flex">
                     <form onSubmit = {handleSubmit} className = "login-form">
@@ -65,15 +68,12 @@ const Login = ({onSubmit}) => {
                     </form>
                 </span>
                 </Content>
-                <Footer style = {{backgroundColor: "#367BA3", textAlign: "right", bottom: "0px"}}>
+                <Footer style = {{ backgroundColor: "#367BA3", textAlign: "right", bottom: "0px"}}>
                     ©Code Monkeys. Developed by Daniel Schubert, Jake Tener, Isaac Spanier
                 </Footer>
             </Layout>
-        </Layout> 
            
         </>
    )
 }
-
-
 export default Login;

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
 import { BoardState, movements } from './board-state/board-state';
 import events from "./events";
+import Callback from './Callback';
 
 const Board = ({wsem, color}) => {
   const canvasRef = useRef();
@@ -24,20 +25,22 @@ const Board = ({wsem, color}) => {
     canvas.focus();
     const ctx = canvas.getContext("2d");
 
-    const cellWidth = canvas.width / 30;
+    const cellWidth = canvas.width / 20;
     const cells = Math.round(canvas.width / cellWidth);
     const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
     boardRef.current = board;
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg");
+    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", false);
     myBlockRef.current = myBlock;
 
     setInterval(function() {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
-        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg");
+        boardState.checkRowCompletion(myBlock);
+        const nextBlockType = Callback.requestType();
+        myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg", false);
       } else {
         boardState.moveBlock(myBlock, movements.softDrop);
       }
@@ -55,7 +58,6 @@ const Board = ({wsem, color}) => {
   }, []);
 
   return (
-    <div>
       <canvas
         ref={canvasRef}
         width={0.45 * window.innerWidth}
@@ -82,8 +84,7 @@ const Board = ({wsem, color}) => {
           const boardState = boardStateRef.current;
           const myBlock = myBlockRef.current;
           boardState.moveBlock(myBlock, movement);
-        }}/>
-   </div>);
+        }}/>);
 };
 
 export default Board;
