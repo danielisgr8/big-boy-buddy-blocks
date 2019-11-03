@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './userUI.css';
-import { Typography } from 'antd';
+import { Typography, Button} from 'antd';
 import Red from './Profiles/Mario.jpg';
 import Green from './Profiles/Shrek.png';
 import Blue from './Profiles/CookieMonster.jpg';
@@ -15,7 +15,14 @@ const { Title } = Typography;
 
 const UserUI = ({myName, myScore, myColor}) => {
 
+    const [isGameRunning, setIsGameRunning] = useState(false);
 
+    console.log("Running", isGameRunning);
+
+
+    function renderGameButton(){
+        console.log("Hello");
+    }
     function chooseProfile(){ 
         if(myColor == "Green"){
             return <img src = {Green} className = "profile" alt = "Profile"/>
@@ -33,6 +40,7 @@ const UserUI = ({myName, myScore, myColor}) => {
             return <img src = {Yellow} className = "profile" alt = "Profile"/>
         }
     }
+
     return(
         <span className = "player-flex" style = {{backgroundColor: myColor}}>
             
@@ -40,6 +48,8 @@ const UserUI = ({myName, myScore, myColor}) => {
             <span style = {{display: "flex", backgroundColor: "black", paddingTop: 10, paddingBottom: 10}}>
                 <SmallBoard color = {myColor}/>
             </span>
+            <br/>
+            {(isGameRunning === true) ? null : <Button onClick = {renderGameButton()}>Start The Game</Button>  }
         </span>
     )
 }
