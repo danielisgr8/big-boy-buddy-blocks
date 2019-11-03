@@ -24,10 +24,6 @@ const Game = ({myName, myColor}) => {
                     {checkMyColor()}
                     <Board color = {myColor}/>
                     <UserUI myName = {myName} myScore = {playerScore} myColor = {myColor} /> 
-                    <UserUI myName = "Daniel" myScore = {playerScore} myColor = "Red" /> 
-                    <UserUI myName = "Jake" myScore = "69" myColor = "Green" /> 
-                    <UserUI myName = "Isaac" myScore = {playerScore} myColor = "Blue" /> 
-                
         </span>
     )
 }
