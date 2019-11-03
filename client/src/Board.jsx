@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
-import { BoardState, movements, blockTypes } from './board-state/board-state';
+import { BoardState, movements } from './board-state/board-state';
 
 const Board = () => {
   const canvasRef = useRef();
@@ -29,10 +29,17 @@ const Board = () => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(blockTypes.T, "red", "greg");
+    const myBlock = boardState.addBlock(boardState.getRandomType(), "red", "greg");
     myBlockRef.current = myBlock;
 
-    setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
+    setInterval(function() {
+      const myBlock = myBlockRef.current;
+      if(boardState.checkIfFinal(myBlock)) {
+        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), "red", "greg");
+      } else {
+        boardState.moveBlock(myBlock, movements.softDrop);
+      }
+    }, 800);
     
     render();
   }, []);
