@@ -107,8 +107,11 @@ export class BoardState {
         break;
       case movements.softDrop:
         return block.points.every((point)=> {
-          const shiftedBlock = this.state[point.y][point.x];
-          return point.y < this.height - 1 && (!shiftedBlock || shiftedBlock === block);
+          if(point.y >= this.height-1){
+            return false;
+          }
+          const shiftedBlock = this.state[point.y + 1][point.x];
+          return (!shiftedBlock || shiftedBlock === block);
         });
       case movements.inPlace:
         return block.points.every((point) => {

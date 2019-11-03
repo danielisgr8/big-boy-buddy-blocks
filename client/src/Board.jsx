@@ -32,7 +32,7 @@ const Board = () => {
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
 
-    setInterval(function(){boardState.moveBlock(myBlock, 4)}, 800);
+    setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
     
     render();
   }, []);
