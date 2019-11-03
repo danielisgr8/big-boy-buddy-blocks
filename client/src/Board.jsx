@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
-import { BoardState, movements, blockTypes, moveBlock } from './board-state/board-state';
+import { BoardState, movements, blockTypes } from './board-state/board-state';
 
 const Board = () => {
   const canvasRef = useRef();
