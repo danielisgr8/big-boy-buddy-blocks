@@ -33,7 +33,7 @@ const UserUI = ({myName, myScore, myColor}) => {
         <span className = "player-flex">
             
             <Title level={2}>{chooseProfile()} {myName}<br/>Score: {myScore}</Title>
-            {console.log("UI-score:", myScore)}
+            
         </span>
     )
 }
