@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
-import { BoardState, movements, blockTypes } from './board-state/board-state';
+import { BoardState, movements, blockTypes, moveBlock } from './board-state/board-state';
 
 const Board = () => {
   const canvasRef = useRef();
@@ -31,6 +31,8 @@ const Board = () => {
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
+
+    setInterval(function(){boardState.moveBlock(myBlock, 4)}, 800);
     
     render();
   }, []);
