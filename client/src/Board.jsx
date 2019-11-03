@@ -8,6 +8,15 @@ const Board = () => {
   const boardStateRef = useRef();
   const myBlockRef = useRef();
 
+  const render = () => {
+    const board = boardRef.current;
+    const boardState = boardStateRef.current;
+    requestAnimationFrame(() => {
+      board.drawState(boardState.state);
+      render();
+    })
+  }
+
   useEffect(() => {
     const canvas = canvasRef.current;
     canvas.focus();
@@ -17,14 +26,13 @@ const Board = () => {
     const cells = Math.round(canvas.width / cellWidth);
     const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
     boardRef.current = board;
-    
-    board.drawBoard();
-
+  
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
-    board.drawState(boardState.state);
+    
+    render();
   }, []);
 
   return (
@@ -35,7 +43,6 @@ const Board = () => {
         height={0.45 * window.innerWidth}
         tabIndex={1}
         onKeyDown={(e) => {
-          // put some timeout so you can't hold down and spam a key
           let movement = null;
           switch(e.key) {
             case "ArrowRight":
@@ -51,9 +58,7 @@ const Board = () => {
           if(movement === null) return;
           const boardState = boardStateRef.current;
           const myBlock = myBlockRef.current;
-          const board = boardRef.current;
           boardState.moveBlock(myBlock, movement);
-          board.drawState(boardState.state);
         }}/>
    </div>);
 };

@@ -29,14 +29,10 @@ class Draw {
             this.ctx.fillStyle = "#FFFFFF";
         }
         this.ctx.fillRect(pixelX,pixelY, this.cellWidth,this.cellWidth)
-        this.ctx.moveTo(pixelX, pixelY);
-        this.ctx.lineTo(pixelX, pixelY+this.cellWidth);
-        this.ctx.lineTo(pixelX+this.cellWidth, pixelY+this.cellWidth);
-        this.ctx.lineTo(pixelX+this.cellWidth, pixelY);
-        this.ctx.lineTo(pixelX, pixelY);
     }
 
     drawState(state) {
+        this.ctx.beginPath();
         for(let row = 0; row < state.length; row++) {
             for(let col = 0; col < state[row].length; col++) {
                 const block = state[row][col];
@@ -47,6 +43,7 @@ class Draw {
                 }
             }
         }
+        this.drawBoard();
         this.ctx.stroke();
     }
 
@@ -59,7 +56,6 @@ class Draw {
             this.ctx.moveTo(0, this.cellWidth*i);
             this.ctx.lineTo(this.width, this.cellWidth*i);
         }
-        this.ctx.stroke();
     }
 }
 export default Draw;
