@@ -54,6 +54,9 @@ const Board = ({color}) => {
             case "ArrowLeft":
               movement = movements.left;
               break;
+            case "ArrowUp":
+              movement = movements.rotateCW;
+              break;
             case "ArrowDown":
               movement = movements.softDrop;
               break;
