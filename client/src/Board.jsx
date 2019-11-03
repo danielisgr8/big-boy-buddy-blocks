@@ -10,6 +10,7 @@ const Board = () => {
 
   useEffect(() => {
     const canvas = canvasRef.current;
+    canvas.focus();
     const ctx = canvas.getContext("2d");
 
     const cellWidth = canvas.width / 30;
@@ -32,11 +33,23 @@ const Board = () => {
         ref={canvasRef}
         width={0.45 * window.innerWidth}
         height={0.45 * window.innerWidth}
-        onClick={(e) => {
+        tabIndex={1}
+        onKeyDown={(e) => {
+          // put some timeout so you can't hold down and spam a key
+          let movement = null;
+          switch(e.key) {
+            case "ArrowRight":
+              movement = movements.right;
+              break;
+            case "ArrowLeft":
+              movement = movements.left;
+              break;
+          }
+          if(movement === null) return;
           const boardState = boardStateRef.current;
           const myBlock = myBlockRef.current;
           const board = boardRef.current;
-          boardState.moveBlock(myBlock, movements.right);
+          boardState.moveBlock(myBlock, movement);
           board.drawState(boardState.state);
         }}/>
    </div>);
