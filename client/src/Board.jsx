@@ -36,6 +36,7 @@ const Board = ({color}) => {
     setInterval(function() {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
+        boardState.checkRowCompletion(myBlock);
         const nextBlockType = Callback.requestType();
         myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg", false);
       } else {
