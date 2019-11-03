@@ -4,7 +4,7 @@ class WebSocketEventManager {
     this.ws = new WebSocket(url);
 
     this.ws.onopen = () => {
-      console.log(`WebSockete opened at ${url}`);
+      console.log(`WebSocket opened at ${url}`);
       if(onOpen) onOpen();
     };
 
@@ -14,7 +14,7 @@ class WebSocketEventManager {
         console.log(`Invalid message received: ${message}`);
         return;
       }
-      console.log(`Event ${message.event} received`);
+      console.log(`Event ${message.event} received: ${JSON.stringify(message.data)}`);
       if(this.events[message.event]) this.events[message.event](message.data);
     };
   }
