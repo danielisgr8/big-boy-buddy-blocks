@@ -4,14 +4,16 @@ import './login.css';
 const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
 
+const placeholderColor = "Select a Color";
+
 const Login = ({onSubmit}) => {
     const [myName, setMyName] = useState("John Doe");
-    const [myColor, setMyColor] = useState("Select a Color");
+    const [myColor, setMyColor] = useState(placeholderColor);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log("changed color", myColor);
-        onSubmit(myName, myColor);    
+        onSubmit(myName, myColor === placeholderColor ? "Orange" : myColor);
     }
     
     function handleMenuClick(e){
