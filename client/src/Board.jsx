@@ -35,7 +35,7 @@ const Board = ({color}) => {
     setInterval(function() {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
-        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), "red", "greg");
+        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg");
       } else {
         boardState.moveBlock(myBlock, movements.softDrop);
       }
