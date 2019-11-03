@@ -4,8 +4,6 @@ import './login.css';
 const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
 
-
-
 const Login = ({onSubmit}) => {
     const [myName, setMyName] = useState("I Forgot My Name");
     const [myColor, setMyColor] = useState("Select a Color");
