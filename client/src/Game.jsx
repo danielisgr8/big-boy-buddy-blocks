@@ -12,7 +12,7 @@ const Game = ({myName, myColor}) => {
     }
     return(
         <span className = "game">
-            <Board drawing="3"/>
+            <Board color = {myColor} drawing="3"/>
             <UserUI myName = {myName} myScore = {playerScore} myColor = {myColor} />    
         </span>
 

@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
 import { BoardState, movements, blockTypes } from './board-state/board-state';
 
-const Board = () => {
+const Board = ({color}) => {
   const canvasRef = useRef();
   const boardRef = useRef();
   const boardStateRef = useRef();
@@ -29,7 +29,7 @@ const Board = () => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+    const myBlock = boardState.addBlock(blockTypes.I, color, "greg");
     myBlockRef.current = myBlock;
 
     setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
