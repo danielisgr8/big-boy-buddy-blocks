@@ -14,7 +14,7 @@ const Board = () => {
     const ctx = canvas.getContext("2d");
 
     const cellWidth = canvas.width / 30;
-    const cells = canvas.width / cellWidth;
+    const cells = Math.round(canvas.width / cellWidth);
     const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
     boardRef.current = board;
     
