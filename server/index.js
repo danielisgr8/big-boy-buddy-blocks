@@ -17,7 +17,7 @@ const players = {};
 wsem.addEventHandler(events.c_join, (ws, data) => {
   const id = playerCount++;
   console.log(`Player join: ${data.name} (${id})`);
-  wsem.sendMessage(ws, events.s_playersJoined, { names: Object.keys(players).map(key => players[key].name) });
+  if(id) wsem.sendMessage(ws, events.s_playersJoined, { names: Object.keys(players).map(key => players[key].name) });
   players[ws] = new Player(id, data.name);
 
   wsem.broadcastMessage(events.s_playersJoined, { names: [data.name] }, ws);
