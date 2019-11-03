@@ -2,15 +2,43 @@
     background: #94C3EB;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
 .login-form{
     margin: auto;
+    background: #367BA3;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     width: 20%;
+    border-radius: 25px;
     
 }
+.ant-layout-header{
+    position: fixed;
+    height: 7.5%;
+    top: 0px;
+    left:0px;
+    right:0px;
+}
+
+.ant-layout-footer{
+    position: fixed;
+    bottom: 0px;
+    left:0px;
+    right:0px;
+    height: 7.5%;
+}
+
+.ant-layout-content{
+    position: fixed;
+    bottom: 7.5%;
+    height: 85%;
+    left:0px;
+    right:0px;
+} 
+
 .color-dropdown{
     margin: auto;
     text-align: center;

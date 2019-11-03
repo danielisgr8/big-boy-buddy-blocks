@@ -45,7 +45,6 @@ const Board = ({color}) => {
   }, []);
 
   return (
-    <div>
       <canvas
         ref={canvasRef}
         width={0.45 * window.innerWidth}
@@ -72,8 +71,7 @@ const Board = ({color}) => {
           const boardState = boardStateRef.current;
           const myBlock = myBlockRef.current;
           boardState.moveBlock(myBlock, movement);
-        }}/>
-   </div>);
+        }}/>);
 };
 
 export default Board;

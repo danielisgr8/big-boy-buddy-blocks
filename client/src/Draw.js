@@ -29,6 +29,9 @@ class Draw {
         else if(color === 'purple'){
             this.ctx.fillStyle = "#800080";
         }
+        else if(color === 'orange'){
+            this.ctx.fillStyle = "#FFA500";
+        }
         else{
             this.ctx.fillStyle = "#FFFFFF";
         }
