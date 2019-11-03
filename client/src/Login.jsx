@@ -5,18 +5,13 @@ const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
 
 const Login = ({onSubmit}) => {
-    const [myName, setMyName] = useState("I Forgot My Name");
+    const [myName, setMyName] = useState("John Doe");
     const [myColor, setMyColor] = useState("Select a Color");
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("before change color", myColor);
-        if(myColor == "Select a Color"){
-            setMyColor("Orange");
-        }
         console.log("changed color", myColor);
-        onSubmit(myName, myColor);
-    
+        onSubmit(myName, myColor);    
     }
     
     function handleMenuClick(e){
@@ -39,6 +34,9 @@ const Login = ({onSubmit}) => {
             </Menu.Item>
             <Menu.Item key="Purple">
                 Purple
+            </Menu.Item>
+            <Menu.Item key="Orange">
+                Orange
             </Menu.Item>
         </Menu>
     );

@@ -17,7 +17,7 @@
 }
 .ant-layout-header{
     position: fixed;
-    height: 10%;
+    height: 7.5%;
     top: 0px;
     left:0px;
     right:0px;
@@ -28,13 +28,13 @@
     bottom: 0px;
     left:0px;
     right:0px;
-    height: 10%;
+    height: 7.5%;
 }
 
 .ant-layout-content{
     position: fixed;
-    bottom: 10%;
-    height: 80%;
+    bottom: 7.5%;
+    height: 85%;
     left:0px;
     right:0px;
 } 

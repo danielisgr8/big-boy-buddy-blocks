@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './userUI.css';
 import { Typography, Button} from 'antd';
 import Red from './Profiles/Mario.jpg';
 import Green from './Profiles/Shrek.png';
@@ -8,6 +7,7 @@ import Purple from './Profiles/Barney.jpg';
 import Yellow from './Profiles/Homer.jpg';
 import Orange from './Profiles/Chester.jpg';
 import {SmallBoard} from './SmallBoard';
+import './userUI.css';
 
 
 const { Title } = Typography;
