@@ -11,6 +11,7 @@ class Draw {
     }
 
     drawCell(x, y, color) {
+        color = color.toLowerCase();
         const pixelX = x*this.cellWidth;
         const pixelY = y*this.cellWidth;
         if (color === 'blue'){

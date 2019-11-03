@@ -1,5 +1,4 @@
 .player-flex{
-    background: grey;
     display: flex; 
     flex-direction: column;
 }

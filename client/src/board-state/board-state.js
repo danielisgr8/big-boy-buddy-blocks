@@ -16,8 +16,8 @@ export const blockTypes = {
   O: 1,
   T: 2,
   S: 3,
-  Z: 4,
-  J: 5,
+  //Z: 4,
+  //J: 5,
   L: 6
 }
 
@@ -57,11 +57,12 @@ export class BoardState {
   moveBlock(block, movement) {
     if(!this.checkCollision(block, movement)) return false;
     switch(movement) {
-      
       case movements.left:
         block.points.forEach((point) => {
           this.state[point.y][point.x] = null;
           point.x--;
+        });
+        block.points.forEach((point) => {
           this.state[point.y][point.x] = block;
         });
         break;
@@ -69,9 +70,23 @@ export class BoardState {
         block.points.forEach((point) => {
           this.state[point.y][point.x] = null;
           point.x++;
+        });
+        block.points.forEach((point) => {
           this.state[point.y][point.x] = block;
         });
         break;
+        case movements.rotateCW:
+          block.points.forEach((point) => {
+            this.state[point.y][point.x] = null;
+          });
+          block.points.forEach((point) => {
+            let difx = point.x - block.rotationPoint.x;
+            let dify = point.y - block.rotationPoint.y;
+            point.x = (dify*(-1)) + block.rotationPoint.x;
+            point.y = difx + block.rotationPoint.y;
+            this.state[point.y][point.x] = block;
+          });
+          break;
       case movements.softDrop:
         block.points.forEach((point)=> {
           this.state[point.y][point.x] = null;
@@ -81,9 +96,9 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
-        
     }
     this.wsem.sendMessage(events.c_blockMoved, { movement });
+    block.touchedGroundLastTick = false;
     return true;
   }
 
@@ -106,6 +121,16 @@ export class BoardState {
           return point.x < this.width - 1 && (!shiftedBlock || shiftedBlock === block);
         });
       case movements.rotateCW:
+        if (block.rotationPoint == null) return false;
+         return block.points.every((point) => {
+          let difx = point.x - block.rotationPoint.x;
+          let dify = point.y - block.rotationPoint.y;
+          let phantomX = (dify*(-1)) + block.rotationPoint.x;
+          let phantomY = difx + block.rotationPoint.y;
+          if(phantomX > this.width - 1 || phantomY > this.height - 1 || phantomX < 0 || phantomY < 0) return false;
+          const shiftedBlock = this.state[phantomY][phantomX];
+          return (!shiftedBlock || shiftedBlock === block);
+         });
         break;
       case movements.softDrop:
         return block.points.every((point)=> {
@@ -172,5 +197,20 @@ export class BoardState {
     }
 
     return points;
+  }
+
+  checkIfFinal(block) {
+    const touchingGroundThisTick = block.points.some((point) => {
+      return point.y >= this.height - 1 || (point.y <= this.height - 1 && this.state[point.y + 1][point.x]);
+    });
+    const final = touchingGroundThisTick && block.touchedGroundLastTick;
+    block.touchedGroundLastTick = touchingGroundThisTick;
+    return final;
+  }
+
+  getRandomType() {
+    const blockTypesArr = Object.keys(blockTypes);
+    const index = Math.floor(Math.random() * blockTypesArr.length);
+    return blockTypes[blockTypesArr[index]];
   }
 }

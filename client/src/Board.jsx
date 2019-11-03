@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
-import { BoardState, movements, blockTypes } from './board-state/board-state';
+import { BoardState, movements } from './board-state/board-state';
 import events from "./events";
 
-const Board = ({wsem}) => {
+const Board = ({wsem, color}) => {
   const canvasRef = useRef();
   const boardRef = useRef();
   const boardStateRef = useRef();
@@ -31,10 +31,17 @@ const Board = ({wsem}) => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg");
     myBlockRef.current = myBlock;
 
-    setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
+    setInterval(function() {
+      const myBlock = myBlockRef.current;
+      if(boardState.checkIfFinal(myBlock)) {
+        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg");
+      } else {
+        boardState.moveBlock(myBlock, movements.softDrop);
+      }
+    }, 800);
     
     render();
 
@@ -63,6 +70,9 @@ const Board = ({wsem}) => {
               break;
             case "ArrowLeft":
               movement = movements.left;
+              break;
+            case "ArrowUp":
+              movement = movements.rotateCW;
               break;
             case "ArrowDown":
               movement = movements.softDrop;
