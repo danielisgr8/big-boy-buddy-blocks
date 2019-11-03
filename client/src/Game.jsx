@@ -11,11 +11,13 @@ const Game = ({myName, myColor}) => {
     const [playState, setPlayState] = useState(false);
     const [players, setPlayers] = useState([]);
 
-    const wsemRef = useRef(new WebSocketEventManager("ws://localhost:1234", () => {
-        wsemRef.current.sendMessage(events.c_join, { name: myName });
-    }));
+    const wsemRef = useRef();
 
     useEffect(() => {
+        wsemRef.current = new WebSocketEventManager("ws://localhost:1234", () => {
+            console.log("runing')");
+            wsemRef.current.sendMessage(events.c_join, { name: myName });
+        });
         const wsem = wsemRef.current;
 
         // TODO: need to consider when player joins after someone else, they need a list of players before
@@ -27,7 +29,7 @@ const Game = ({myName, myColor}) => {
         wsem.addEventHandler(events.s_playerLeft, (data) => {
             setPlayers(players.some((player) => player !== data.player));
         });
-    });
+    }, []);
     
     function incrementPlayerScore(){
         setPlayerScore(playerScore++);
