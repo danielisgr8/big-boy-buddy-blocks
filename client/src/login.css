@@ -1,13 +1,19 @@
 .login-flex{
-    background: grey;
+    background: #94C3EB;
     display: flex;
     flex-direction: column;
 }
 
 .login-form{
     margin: auto;
+    display: flex;
+    flex-direction: column;
     width: 20%;
     
+}
+.color-dropdown{
+    margin: auto;
+    text-align: center;
 }
 .bbbb-title{
     margin: auto;
@@ -15,4 +21,5 @@
 }
 .play{
     margin: auto;
+
 }
