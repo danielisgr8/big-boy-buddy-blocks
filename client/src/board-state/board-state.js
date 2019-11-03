@@ -53,7 +53,6 @@ export class BoardState {
    * @returns {boolean} `true` if the block was moved, `false` otherwise
    */
   moveBlock(block, movement) {
-    console.log(movement);
     if(!this.checkCollision(block, movement)) return false;
     switch(movement) {
       
