@@ -84,6 +84,7 @@ export class BoardState {
             point.y = difx + block.rotationPoint.y;
             this.state[point.y][point.x] = block;
           });
+          break;
       case movements.softDrop:
         block.points.forEach((point)=> {
           this.state[point.y][point.x] = null;
