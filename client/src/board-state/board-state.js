@@ -30,16 +30,22 @@ export class BoardState {
     }
   }
 
+  clear(){
+    for(let i = 0; i < this.height; i++) {
+      this.state[i] = new Array(this.width);
+    }
+  }
   /**
    * 
    * @param {*} blockType 
    * @returns {boolean} `true` if you block was added, `false` otherwise
    */
-  addBlock(blockType, color, user) {
+  addBlock(blockType, color, user, smallScreen) {
     //TODO: update documentation
-    const points = this.getStartPoints(blockType);
+    const points = this.getStartPoints(blockType, smallScreen);
     if(!points) return null;
     const block = new Block(blockType, color, user, points);
+    //if(!this.checkCollision(block, movements.inPlace)) return null;
     block.points.forEach((point) => {
       this.state[point.y][point.x] = block;
     });
@@ -140,8 +146,9 @@ export class BoardState {
       case movements.inPlace:
         return block.points.every((point) => {
           const currentBlock = this.state[point.y][point.x];
-          return currentBlock === null || currentBlock === block;
+          return (!currentBlock || currentBlock === block);
         });
+        break;
       // TODO: movements.rotateCCW
     }
     return false;
@@ -152,40 +159,42 @@ export class BoardState {
    * @param {number} pieceType 
    * @returns {number[]}
    */
-  getStartPoints(pieceType) {
+  getStartPoints(pieceType, queued) {
     const points = [];
     let xs, ys;
+    let rand = Math.floor((Math.random() * 29));
+    if(queued) rand = 0;
     switch(pieceType) {
       case blockTypes.I:
-        xs = [0, 0, 0, 0];
+        xs = [0+rand, 0+rand, 0+rand, 0+rand];
         ys = [0, 1, 2, 3];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.O:
-        xs = [0, 0, 1, 1];
+        xs = [0+rand, 0+rand, 1+rand, 1+rand];
         ys = [0, 1, 0, 1];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.L:
-        xs = [0, 0, 0, 1];
+        xs = [0+rand, 0+rand, 0+rand, 1+rand];
         ys = [0, 1, 2, 2];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.S:
-        xs = [0, 0, 1, 1];
+        xs = [0+rand, 0+rand, 1+rand, 1+rand];
         ys = [0, 1, 1, 2];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.T:
-        xs = [0, 0, 0, 1];
+        xs = [0+rand, 0+rand, 0+rand, 1+rand];
         ys = [0, 1, 2, 1];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));

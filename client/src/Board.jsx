@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
 import { BoardState, movements } from './board-state/board-state';
+import Callback from './Callback';
 
 const Board = ({color}) => {
   const canvasRef = useRef();
@@ -22,20 +23,21 @@ const Board = ({color}) => {
     canvas.focus();
     const ctx = canvas.getContext("2d");
 
-    const cellWidth = canvas.width / 30;
+    const cellWidth = canvas.width / 20;
     const cells = Math.round(canvas.width / cellWidth);
     const board = new Draw(ctx, canvas.width, canvas.height, cellWidth)
     boardRef.current = board;
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg");
+    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", false);
     myBlockRef.current = myBlock;
 
     setInterval(function() {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
-        myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg");
+        const nextBlockType = Callback.requestType();
+        myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg", false);
       } else {
         boardState.moveBlock(myBlock, movements.softDrop);
       }
