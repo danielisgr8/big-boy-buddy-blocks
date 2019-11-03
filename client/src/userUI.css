@@ -1,0 +1,10 @@
+.player-flex{
+    background: grey;
+    display: flex; 
+    flex-direction: column;
+}
+
+.profile{
+    width: 75px;
+    height: 75px;
+}
