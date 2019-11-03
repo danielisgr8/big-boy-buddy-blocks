@@ -19,12 +19,14 @@ const Board = () => {
     boardRef.current = board;
     
     board.drawBoard();
+    
 
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
     myBlockRef.current = myBlock;
-    board.drawState(boardState.state);
+    setInterval(function(){board.drawState(boardState.state);}, 100); //Should be around 60 FPS
+    //board.drawState(boardState.state);
   }, []);
 
   return (
@@ -50,7 +52,7 @@ const Board = () => {
           const myBlock = myBlockRef.current;
           const board = boardRef.current;
           boardState.moveBlock(myBlock, movement);
-          board.drawState(boardState.state);
+          //board.drawState(boardState.state);
         }}/>
    </div>);
 };
