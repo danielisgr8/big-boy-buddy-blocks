@@ -44,6 +44,9 @@ const Board = () => {
             case "ArrowLeft":
               movement = movements.left;
               break;
+            case "ArrowUp":
+              movement = movements.rotateCW;
+              break;
           }
           if(movement === null) return;
           const boardState = boardStateRef.current;

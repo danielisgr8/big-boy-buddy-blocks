@@ -1,3 +1,5 @@
+import Point from "./point";
+
 class Block {
     constructor(piece, color, user, points) {
         this.piece = piece;
@@ -5,7 +7,24 @@ class Block {
         this.finalized = false;
         this.user = user;
         this.points = points;
-        this.rotationPoint = null; // TODO: figure this out
+        this.setRotationPoint();
+    }
+    setRotationPoint(){
+        if(this.piece === 0){
+            this.rotationPoint = this.points[1];
+        }
+        else if(this.piece === 1){
+            this.rotationPoint = null;
+        }
+        else if(this.piece === 2){
+            this.rotationPoint = this.points[1];
+        }
+        else if(this.piece === 3){
+            this.rotationPoint = this.points[1];
+        }
+        else if(this.piece === 4){
+            this.rotationPoint = this.points[1];
+        }
     }
 }
 

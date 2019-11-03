@@ -69,6 +69,15 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
+        case movements.rotateCW:
+          block.points.forEach((point) => {
+            this.state[point.y][point.x] = null;
+            let difx = point.x - block.rotationPoint.x;
+            let dify = point.y - block.rotationPoint.y;
+            point.x = (difx*Math.cos(90) - dify*Math.sin(90)) + block.rotationPoint.x;
+            point.y = (difx*Math.sin(90) + dify*Math.cos(90)) + block.rotationPoint.y;
+            this.state[point.y][point.x] = block;
+          });
     }
     return true;
   }
@@ -92,6 +101,15 @@ export class BoardState {
           return point.x < this.width - 1 && (!shiftedBlock || shiftedBlock === block);
         });
       case movements.rotateCW:
+         return block.points.every((point) => {
+           alert(point.rotationPoint);
+          let difx = point.x - block.rotationPoint.x;
+          let dify = point.y - block.rotationPoint.y;
+          point.x = Math.round((difx*Math.cos(90) - dify*Math.sin(90)) + block.rotationPoint.x);
+          point.y = Math.round((difx*Math.sin(90) + dify*Math.cos(90)) + block.rotationPoint.y);
+          const shiftedBlock = this.state[point.y][point.x];
+          return point.x > 0 && point.y > 0 && point.x < this.width && point.y < this.height && (shiftedBlock === null || shiftedBlock === block);
+         });
         break;
       case movements.softDrop:
         break;
