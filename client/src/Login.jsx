@@ -47,7 +47,7 @@ const Login = ({onSubmit}) => {
     return(
         <>
             <Layout className = "layout">
-                <Header style = {{backgroundColor: "#367BA3", textAlign: "center",}}><Title style ={{color: "white"}}>Big Boy Buddy Blocks</Title></Header>
+                <Header style = {{ backgroundColor: "#367BA3", textAlign: "center"}}><Title style ={{color: "white"}}>Big Boy Buddy Blocks</Title></Header>
                 <Content>
                 <span className = "login-flex">
                     <form onSubmit = {handleSubmit} className = "login-form">
@@ -78,6 +78,4 @@ const Login = ({onSubmit}) => {
         </>
    )
 }
-
-
 export default Login;

@@ -7,22 +7,34 @@
 
 .login-form{
     margin: auto;
+    background: #367BA3;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     width: 20%;
+    border-radius: 25px;
     
 }
+.ant-layout-header{
+    position: fixed;
+    height: 10%;
+    top: 0px;
+    left:0px;
+    right:0px;
+}
+
 .ant-layout-footer{
     position: fixed;
     bottom: 0px;
     left:0px;
     right:0px;
+    height: 10%;
 }
 
 .ant-layout-content{
     position: fixed;
-    bottom: 8%;
-    height: 84%;
+    bottom: 10%;
+    height: 80%;
     left:0px;
     right:0px;
 } 
