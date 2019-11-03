@@ -1,5 +1,6 @@
 import Point from "./point";
 import Block from "./block";
+import events from "../events";
 
 export const movements = {
   left: 0,
@@ -21,9 +22,10 @@ export const blockTypes = {
 }
 
 export class BoardState {
-  constructor(width, height) {
+  constructor(width, height, wsem) {
     this.width = width;
     this.height = height;
+    this.wsem = wsem;
     this.state = new Array(height);
     for(let i = 0; i < height; i++) {
       this.state[i] = new Array(width);
@@ -33,16 +35,16 @@ export class BoardState {
   /**
    * 
    * @param {*} blockType 
-   * @returns {boolean} `true` if you block was added, `false` otherwise
+   * @returns {Block} The block added, or `null` if it couldn't be
    */
   addBlock(blockType, color, user) {
-    //TODO: update documentation
     const points = this.getStartPoints(blockType);
     if(!points) return null;
     const block = new Block(blockType, color, user, points);
     block.points.forEach((point) => {
       this.state[point.y][point.x] = block;
     });
+    this.wsem.sendMessage(events.c_newBlock, { blockType, points });
     return block;
   }
 
@@ -70,6 +72,7 @@ export class BoardState {
         });
         break;
     }
+    this.wsem.sendMessage(events.c_blockMoved, { movement });
     return true;
   }
 
@@ -84,7 +87,7 @@ export class BoardState {
       case movements.left:
         return block.points.every((point) => {
           const shiftedBlock = this.state[point.y][point.x - 1];
-          return point.x > 0 && (shiftedBlock === null || shiftedBlock === block);
+          return point.x > 0 && (!shiftedBlock || shiftedBlock === block);
         });
       case movements.right:
         return block.points.every((point) => {

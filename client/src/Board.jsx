@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./Draw";
 import { BoardState, movements, blockTypes } from './board-state/board-state';
+import events from "./events";
 
-const Board = () => {
+const Board = ({wsem}) => {
   const canvasRef = useRef();
   const boardRef = useRef();
   const boardStateRef = useRef();
   const myBlockRef = useRef();
+  const playerBlocks = useRef({});
 
   const render = () => {
     const board = boardRef.current;
@@ -33,6 +35,14 @@ const Board = () => {
     myBlockRef.current = myBlock;
     
     render();
+
+    wsem.addEventHandler(events.s_newBlock, (data) => {
+      
+    });
+
+    wsem.addEventHandler(events.s_blockMoved, (data) => {
+      boardState.moveBlock(playerBlocks.current[data.name], data.movement);
+    });
   }, []);
 
   return (
