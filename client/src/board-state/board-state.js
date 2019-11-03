@@ -117,6 +117,7 @@ export class BoardState {
           return point.x < this.width - 1 && (!shiftedBlock || shiftedBlock === block);
         });
       case movements.rotateCW:
+        if (block.rotationPoint == null) return false;
          return block.points.every((point) => {
           let difx = point.x - block.rotationPoint.x;
           let dify = point.y - block.rotationPoint.y;
