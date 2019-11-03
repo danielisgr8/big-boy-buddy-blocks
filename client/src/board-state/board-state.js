@@ -15,8 +15,8 @@ export const blockTypes = {
   O: 1,
   T: 2,
   S: 3,
-  Z: 4,
-  J: 5,
+  //Z: 4,
+  //J: 5,
   L: 6
 }
 
@@ -94,8 +94,8 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
-        
     }
+    block.touchedGroundLastTick = false;
     return true;
   }
 
@@ -194,5 +194,20 @@ export class BoardState {
     }
 
     return points;
+  }
+
+  checkIfFinal(block) {
+    const touchingGroundThisTick = block.points.some((point) => {
+      return point.y >= this.height - 1 || (point.y <= this.height - 1 && this.state[point.y + 1][point.x]);
+    });
+    const final = touchingGroundThisTick && block.touchedGroundLastTick;
+    block.touchedGroundLastTick = touchingGroundThisTick;
+    return final;
+  }
+
+  getRandomType() {
+    const blockTypesArr = Object.keys(blockTypes);
+    const index = Math.floor(Math.random() * blockTypesArr.length);
+    return blockTypes[blockTypesArr[index]];
   }
 }

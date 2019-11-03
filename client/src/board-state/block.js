@@ -9,7 +9,9 @@ class Block {
         this.user = user;
         this.points = points;
         this.setRotationPoint();
+        this.touchedGroundLastTick = false;
     }
+
     setRotationPoint(){
         if(this.piece === blockTypes.I){
             this.rotationPoint = this.points[1];
