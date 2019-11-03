@@ -68,14 +68,17 @@ export class BoardState {
           point.x++;
           this.state[point.y][point.x] = block;
         });
-      //Adding the downward movement -> not sure what is going on yet
-      case movements.down:
-        block.points.forEach((point) => {
+        break;
+      case movements.softDrop:
+        block.points.forEach((point)=> {
           this.state[point.y][point.x] = null;
-          point.y--;
+          point.y++;
+        });
+        block.points.forEach((point)=> {
           this.state[point.y][point.x] = block;
         });
         break;
+        
     }
     return true;
   }
@@ -101,7 +104,10 @@ export class BoardState {
       case movements.rotateCW:
         break;
       case movements.softDrop:
-        break;
+        return block.points.every((point)=> {
+          const shiftedBlock = this.state[point.y][point.x];
+          return point.y < this.height - 1 && (!shiftedBlock || shiftedBlock === block);
+        });
       case movements.inPlace:
         return block.points.every((point) => {
           const currentBlock = this.state[point.y][point.x];

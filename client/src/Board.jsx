@@ -45,6 +45,7 @@ const Board = () => {
         onKeyDown={(e) => {
           let movement = null;
           switch(e.key) {
+            
             case "ArrowRight":
               movement = movements.right;
               break;
