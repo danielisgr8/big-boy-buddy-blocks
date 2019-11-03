@@ -36,7 +36,7 @@ const Game = ({myName, myColor}) => {
     }
 
     return(
-        <span classname="game">
+        <span className="game">
             {playState && <Board drawing="3" wsem={wsemRef.current} />}
             <UserUI myName={myName} myScore={playerScore} myColor={myColor} />    
         </span>
