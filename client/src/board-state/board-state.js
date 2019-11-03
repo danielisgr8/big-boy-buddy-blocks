@@ -106,6 +106,32 @@ export class BoardState {
   }
 
   /**
+   * 
+   * @param {Block} block 
+   *
+   * Checks to see if a row is completed and removed and replaces this row
+   */
+  checkRowCompletion(block){
+    console.log("Isaac is Sad");
+    
+    // block.points.every((point) => {
+    //   const isRowCompleted = false;
+    //   const curX = point.x;
+    //   const checkedBlock = this.state[curX][point.y];
+    //   console.log("checked box", checkedBlock);
+    //    if(curX > 0 && checkedBlock){
+    //      checkedBlock = this.state
+    //    }
+
+
+    //only have to check the block's piece's rows for completion
+    //check left to the edge,
+    //then check right to the edge, and remove row if all filled. 
+    //remove the row that is completed
+    //drop all colored blocks down if space below them is white
+    //add to that player's score that placed the last piece
+  }
+  /**
    * Checks if the given movement is valid.
    * @param {Block} block 
    * @param {number} movement 
