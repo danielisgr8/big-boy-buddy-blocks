@@ -22,7 +22,7 @@ class Block {
         else if(this.piece === 3){
             this.rotationPoint = this.points[1];
         }
-        else if(this.piece === 4){
+        else if(this.piece === 6){
             this.rotationPoint = this.points[1];
         }
     }

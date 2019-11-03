@@ -29,7 +29,7 @@ const Board = () => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(blockTypes.I, "red", "greg");
+    const myBlock = boardState.addBlock(blockTypes.L, "red", "greg");
     myBlockRef.current = myBlock;
 
     setInterval(function(){boardState.moveBlock(myBlock, movements.softDrop)}, 800);
