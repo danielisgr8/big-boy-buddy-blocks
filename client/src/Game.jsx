@@ -8,8 +8,8 @@ const Game = ({myName, myColor}) => {
 
     return(
         <span className = "game">
-                <Board color = {myColor}/>
-                <UserUI myName = {myName} myScore = {playerScore} myColor = {myColor} />
+            <Board color = {myColor}/>
+            <UserUI myName = {myName} myScore = {playerScore} myColor = {myColor} />
         </span>
     )
 }
