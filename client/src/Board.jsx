@@ -30,15 +30,15 @@ const Board = ({color}) => {
   
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
-    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", false);
+    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg");
     myBlockRef.current = myBlock;
 
     setInterval(function() {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
         boardState.checkRowCompletion(myBlock);
-        myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg", false);
         const nextBlockType = Mediator.requestType();
+        myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg");
       } else {
         boardState.moveBlock(myBlock, movements.softDrop);
       }

@@ -34,14 +34,14 @@ export const SmallBoard = ({color}) => {
         const boardState = new BoardState(cells, cells);
         boardStateRef.current = boardState;
         console.log("SmallBoard Color:", color);
-        const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", true);
+    const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", false);
         myBlockRef.current = myBlock;
         
     Mediator.setPreviewCallback(() => {  
           const blockType = myBlockRef.current.piece;
           console.log(blockType);
           boardState.clear();
-          myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg", true);
+      myBlockRef.current = boardState.addBlock(boardState.getRandomType(), color, "greg", false);
           return blockType;
         });
         render();
