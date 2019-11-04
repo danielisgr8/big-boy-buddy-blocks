@@ -30,11 +30,12 @@ export class BoardState {
     }
   }
 
-  clear(){
+  clear() {
     for(let i = 0; i < this.height; i++) {
       this.state[i] = new Array(this.width);
     }
   }
+
   /**
    * 
    * @param {*} blockType 
@@ -60,6 +61,7 @@ export class BoardState {
    */
   moveBlock(block, movement) {
     if(!this.checkCollision(block, movement)) return false;
+
     switch(movement) {
       case movements.left:
         block.points.forEach((point) => {
@@ -79,18 +81,18 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
-        case movements.rotateCW:
-          block.points.forEach((point) => {
-            this.state[point.y][point.x] = null;
-          });
-          block.points.forEach((point) => {
-            let difx = point.x - block.rotationPoint.x;
-            let dify = point.y - block.rotationPoint.y;
-            point.x = (dify*(-1)) + block.rotationPoint.x;
-            point.y = difx + block.rotationPoint.y;
-            this.state[point.y][point.x] = block;
-          });
-          break;
+      case movements.rotateCW:
+        block.points.forEach((point) => {
+          this.state[point.y][point.x] = null;
+        });
+        block.points.forEach((point) => {
+          let difx = point.x - block.rotationPoint.x;
+          let dify = point.y - block.rotationPoint.y;
+          point.x = (dify*(-1)) + block.rotationPoint.x;
+          point.y = difx + block.rotationPoint.y;
+          this.state[point.y][point.x] = block;
+        });
+        break;
       case movements.softDrop:
         block.points.forEach((point)=> {
           this.state[point.y][point.x] = null;
@@ -131,6 +133,7 @@ export class BoardState {
     //drop all colored blocks down if space below them is white
     //add to that player's score that placed the last piece
   }
+
   /**
    * Checks if the given movement is valid.
    * @param {Block} block 
@@ -151,21 +154,23 @@ export class BoardState {
         });
       case movements.rotateCW:
         if (block.rotationPoint == null) return false;
-         return block.points.every((point) => {
+
+        return block.points.every((point) => {
           let difx = point.x - block.rotationPoint.x;
           let dify = point.y - block.rotationPoint.y;
+
           let phantomX = (dify*(-1)) + block.rotationPoint.x;
           let phantomY = difx + block.rotationPoint.y;
+
           if(phantomX > this.width - 1 || phantomY > this.height - 1 || phantomX < 0 || phantomY < 0) return false;
+
           const shiftedBlock = this.state[phantomY][phantomX];
           return (!shiftedBlock || shiftedBlock === block);
-         });
-        break;
+        });
       case movements.softDrop:
         return block.points.every((point)=> {
-          if(point.y >= this.height-1){
-            return false;
-          }
+          if(point.y >= this.height - 1) return false;
+
           const shiftedBlock = this.state[point.y + 1][point.x];
           return (!shiftedBlock || shiftedBlock === block);
         });
@@ -174,7 +179,6 @@ export class BoardState {
           const currentBlock = this.state[point.y][point.x];
           return (!currentBlock || currentBlock === block);
         });
-        break;
       // TODO: movements.rotateCCW
     }
     return false;
