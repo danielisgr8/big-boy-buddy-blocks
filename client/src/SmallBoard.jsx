@@ -1,7 +1,7 @@
 import React,{ useRef, useEffect }from 'react';
 import { BoardState, blockTypes } from './board-state/board-state';
-import Callback from './Callback';
 import Draw from "./draw";
+import Mediator from './board-state/mediator';
 
 export const SmallBoard = ({color}) => {
     console.log("Small Board->", color );
@@ -37,8 +37,7 @@ export const SmallBoard = ({color}) => {
         const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg", true);
         myBlockRef.current = myBlock;
         
-        Callback.setPreviewCallback(() => {
-          
+    Mediator.setPreviewCallback(() => {  
           const blockType = myBlockRef.current.piece;
           console.log(blockType);
           boardState.clear();

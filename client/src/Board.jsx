@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./draw";
 import { BoardState, movements } from './board-state/board-state';
-import Callback from './Callback';
+import Mediator from './board-state/mediator';
 
 const Board = ({color}) => {
   const canvasRef = useRef();
@@ -37,8 +37,8 @@ const Board = ({color}) => {
       const myBlock = myBlockRef.current;
       if(boardState.checkIfFinal(myBlock)) {
         boardState.checkRowCompletion(myBlock);
-        const nextBlockType = Callback.requestType();
         myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg", false);
+        const nextBlockType = Mediator.requestType();
       } else {
         boardState.moveBlock(myBlock, movements.softDrop);
       }
