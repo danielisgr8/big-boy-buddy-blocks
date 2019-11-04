@@ -51,7 +51,9 @@ export class BoardState {
     block.points.forEach((point) => {
       this.state[point.y][point.x] = block;
     });
-    this.wsem.sendMessage(events.c_newBlock, { blockType, points });
+
+    if(this.wsem) this.wsem.sendMessage(events.c_newBlock, { blockType, points });
+
     return block;
   }
 
@@ -104,8 +106,11 @@ export class BoardState {
         });
         break;
     }
-    this.wsem.sendMessage(events.c_blockMoved, { movement });
+
     block.touchedGroundLastTick = false;
+
+    if(this.wsem) this.wsem.sendMessage(events.c_blockMoved, { movement });
+
     return true;
   }
 

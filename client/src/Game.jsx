@@ -14,18 +14,17 @@ const Game = ({myName, myColor}) => {
     // `true` if the game is currently running, `false` otherwise
     const [playState, setPlayState] = useState(false);
     const [players, setPlayers] = useState([]);
+    const [wsReady, setWsReady] = useState(false);
 
     const wsemRef = useRef();
 
     useEffect(() => {
-        wsemRef.current = new WebSocketEventManager(`ws://${window.location.hostname}:1234`, () => {
-            console.log("runing')");
+        const wsem = new WebSocketEventManager(`ws://${window.location.hostname}:1234`, () => {
+            setWsReady(true);
             wsemRef.current.sendMessage(events.c_join, { name: myName });
         });
-        const wsem = wsemRef.current;
+        wsemRef.current = wsem;
 
-        // TODO: need to consider when player joins after someone else, they need a list of players before
-        // TODO: server has to maintain list of users (wss.clients?)
         wsem.addEventHandler(events.s_playersJoined, (data) => {
             setPlayers([...players, ...data.names]);
         });
@@ -41,7 +40,7 @@ const Game = ({myName, myColor}) => {
 
     return(
         <span className = "game">
-            {playState && <Board color = {myColor} wsem={wsemRef.current} />}
+            {wsReady && <Board color={myColor} wsem={wsemRef.current} />}
             <UserUI myName={myName} myScore={playerScore} myColor={myColor} />    
         </span>
     )
