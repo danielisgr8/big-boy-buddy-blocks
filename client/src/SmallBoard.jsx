@@ -1,7 +1,7 @@
 import React,{ useRef, useEffect }from 'react';
-import Draw from "./Draw";
 import { BoardState, blockTypes } from './board-state/board-state';
 import Callback from './Callback';
+import Draw from "./draw";
 
 export const SmallBoard = ({color}) => {
     console.log("Small Board->", color );

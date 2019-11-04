@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from "react";
-import Draw from "./Draw";
+import Draw from "./draw";
 import { BoardState, movements } from './board-state/board-state';
 import Callback from './Callback';
 
