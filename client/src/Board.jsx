@@ -34,6 +34,7 @@ const Board = ({wsem, color}) => {
     const boardState = new BoardState(cells, cells);
     boardStateRef.current = boardState;
     const myBlock = boardState.addBlock(boardState.getRandomType(), color, "greg");
+    if(wsem) wsem.sendMessage(events.c_newBlock, { blockType: myBlock.piece, points: myBlock.points });
     myBlockRef.current = myBlock;
 
     setInterval(() => {
@@ -42,8 +43,11 @@ const Board = ({wsem, color}) => {
         boardState.checkRowCompletion(myBlock);
         const nextBlockType = Mediator.requestType();
         myBlockRef.current = boardState.addBlock(nextBlockType, color, "greg");
+        if(wsem) wsem.sendMessage(events.c_newBlock, { blockType: myBlockRef.current.piece, points: myBlockRef.current.points });
       } else {
-        boardState.moveBlock(myBlock, movements.softDrop);
+        const movement = movements.softDrop;
+        const success = boardState.moveBlock(myBlock, movement);
+        if(success && wsem) wsem.sendMessage(events.c_blockMoved, { movement });
       }
     }, 800);
     
@@ -85,7 +89,8 @@ const Board = ({wsem, color}) => {
         if(movement === null) return;
         const boardState = boardStateRef.current;
         const myBlock = myBlockRef.current;
-        boardState.moveBlock(myBlock, movement);
+        const success = boardState.moveBlock(myBlock, movement);
+        if(success && wsem) wsem.sendMessage(events.c_blockMoved, { movement });
       }}
     />);
 };

@@ -1,4 +1,3 @@
-import Point from "./point";
 import {blockTypes} from './board-state';
 
 class Block {

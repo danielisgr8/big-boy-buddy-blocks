@@ -22,10 +22,9 @@ export const blockTypes = {
 }
 
 export class BoardState {
-  constructor(width, height, wsem) {
+  constructor(width, height) {
     this.width = width;
     this.height = height;
-    this.wsem = wsem;
     this.state = new Array(height);
     for(let i = 0; i < height; i++) {
       this.state[i] = new Array(width);
@@ -110,8 +109,6 @@ export class BoardState {
     }
 
     block.touchedGroundLastTick = false;
-
-    if(this.wsem) this.wsem.sendMessage(events.c_blockMoved, { movement });
 
     return true;
   }
