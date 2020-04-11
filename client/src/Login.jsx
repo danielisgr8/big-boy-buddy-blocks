@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Menu, Icon, Input, Button, Typography, Dropdown, Layout} from 'antd';
+import {Menu, Icon, Input, Button, Typography, Dropdown, Layout, Checkbox} from 'antd';
 import './login.css';
 const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
@@ -12,10 +12,11 @@ const Login = ({onSubmit}) => {
 
     const [myName, setMyName] = useState("John Doe");
     const [myColor, setMyColor] = useState(placeholderColor);
+    const [local, setLocal] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onSubmit(myName, myColor === placeholderColor ? defaultColor : myColor);
+        onSubmit(myName, myColor === placeholderColor ? defaultColor : myColor, local);
     }
     
     function handleMenuClick(e){
@@ -66,6 +67,8 @@ const Login = ({onSubmit}) => {
                                 {myColor}
                         </Button>
                     </Dropdown>
+                    <br/>
+                    <Checkbox onChange={(e) => setLocal(e.target.checked)}>Local?</Checkbox>
                     <br/>
                     <Button onClick = {handleSubmit} type = "primary" className = "play" value = "Play">Play</Button>
                     <br/>

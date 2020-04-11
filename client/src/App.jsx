@@ -8,15 +8,18 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [playerName, setPlayerName] = useState("Player");
   const [playerColor, setPlayerColor] = useState("Orange");
+  const [local, setLocal] = useState(false);
+
   return(
     <div>
       {isLoggedIn ? (
-        <Game drawing="3" myName = {playerName} myColor = {playerColor} />
+        <Game drawing="3" myName = {playerName} myColor = {playerColor} local={local} />
       ) : (
-        <Login onSubmit={(myName, myColor)=>{
+        <Login onSubmit={(myName, myColor, myLocal)=>{
           setIsLoggedIn(true); 
           setPlayerName(myName); 
           setPlayerColor(myColor);
+          setLocal(myLocal);
           }}/>
       )}
     </div> 

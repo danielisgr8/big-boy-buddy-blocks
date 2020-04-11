@@ -49,13 +49,15 @@ const Board = ({wsem, color}) => {
     
     render();
 
-    wsem.addEventHandler(events.s_newBlock, (data) => {
+    if(wsem) {
+      wsem.addEventHandler(events.s_newBlock, (data) => {
       
-    });
-
-    wsem.addEventHandler(events.s_blockMoved, (data) => {
-      boardState.moveBlock(playerBlocks.current[data.name], data.movement);
-    });
+      });
+  
+      wsem.addEventHandler(events.s_blockMoved, (data) => {
+        boardState.moveBlock(playerBlocks.current[data.name], data.movement);
+      });
+    }
   }, []);
 
   return (

@@ -5,7 +5,7 @@ import WebSocketEventManager from "./websocket-event-manager";
 import events from "./events";
 import './game.css';
 
-const Game = ({myName, myColor}) => {
+const Game = ({myName, myColor, local}) => {
     const [playerScore, setPlayerScore] = useState(0);
     // `true` if the game is currently running, `false` otherwise
     const [playState, setPlayState] = useState(false);
@@ -15,6 +15,8 @@ const Game = ({myName, myColor}) => {
     const wsemRef = useRef();
 
     useEffect(() => {
+        if(local) return;
+
         const wsem = new WebSocketEventManager(`ws://${window.location.hostname}:1234`, () => {
             setWsReady(true);
             wsemRef.current.sendMessage(events.c_join, { name: myName });
@@ -36,7 +38,7 @@ const Game = ({myName, myColor}) => {
 
     return(
         <span className = "game">
-            {wsReady && <Board color={myColor} wsem={wsemRef.current} />}
+            {(local || wsReady) && <Board color={myColor} wsem={local ? undefined : wsemRef.current} />}
             <UserUI myName={myName} myScore={playerScore} myColor={myColor} />    
         </span>
     )
