@@ -23,6 +23,14 @@ wsem.addEventHandler(events.c_join, (ws, data) => {
   wsem.broadcastMessage(events.s_playersJoined, { names: [data.name] }, ws);
 });
 
+wsem.addEventHandler(events.c_playerLeft, (ws) => {
+  playerCount--;
+  const name = players[ws.id].name;
+  delete players[ws.id];
+
+  wsem.broadcastMessage(events.s_playerLeft, { name });
+});
+
 wsem.addEventHandler(events.c_blockMoved, (ws, data) => {
   const outgoingData = {
     player: players[ws.id].name,
@@ -41,9 +49,4 @@ wsem.addEventHandler(events.c_newBlock, (ws, data) => {
   wsem.broadcastMessage(events.s_newBlock, outgoingData, ws);
 });
 
-wsem.addEventHandler(events.c_playerLeft, (ws) => {
-  wsem.broadcastMessage(events.s_playerLeft, { name: players[ws.id].name });
-});
-
 // TODO: make player manager
-// TODO: handle player leaving
