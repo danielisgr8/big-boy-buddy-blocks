@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Menu, Icon, Input, Button, Typography, message, Dropdown, Layout} from 'antd';
+import {Menu, Icon, Input, Button, Typography, Dropdown, Layout} from 'antd';
 import './login.css';
 const {Title} = Typography;
 const {Header, Footer, Content} = Layout;
@@ -7,13 +7,15 @@ const {Header, Footer, Content} = Layout;
 const placeholderColor = "Select a Color";
 
 const Login = ({onSubmit}) => {
+    const placeholderColor = "Select a Color";
+    const defaultColor = "Orange";
+
     const [myName, setMyName] = useState("John Doe");
     const [myColor, setMyColor] = useState(placeholderColor);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("changed color", myColor);
-        onSubmit(myName, myColor === placeholderColor ? "Orange" : myColor);
+        onSubmit(myName, myColor === placeholderColor ? defaultColor : myColor);
     }
     
     function handleMenuClick(e){

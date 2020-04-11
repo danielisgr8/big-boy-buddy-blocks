@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Board from './Board';
-import {Layout, Typography} from 'antd';
 import UserUI from './UserUI';
 import WebSocketEventManager from "./websocket-event-manager";
 import events from "./events";
 import './game.css';
-
-const {Title} = Typography;
-const {Header, Footer, Content, Sider} = Layout;
 
 const Game = ({myName, myColor}) => {
     const [playerScore, setPlayerScore] = useState(0);

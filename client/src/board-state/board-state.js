@@ -32,19 +32,20 @@ export class BoardState {
     }
   }
 
-  clear(){
+  clear() {
     for(let i = 0; i < this.height; i++) {
       this.state[i] = new Array(this.width);
     }
   }
+
   /**
    * 
    * @param {*} blockType 
    * @returns {Block} The block added, or `null` if it couldn't be
    */
-  addBlock(blockType, color, user, smallScreen) {
+  addBlock(blockType, color, user, randomStart = true) {
     //TODO: update documentation
-    const points = this.getStartPoints(blockType, smallScreen);
+    const points = this.getStartPoints(blockType, randomStart);
     if(!points) return null;
     const block = new Block(blockType, color, user, points);
     //if(!this.checkCollision(block, movements.inPlace)) return null;
@@ -65,6 +66,7 @@ export class BoardState {
    */
   moveBlock(block, movement) {
     if(!this.checkCollision(block, movement)) return false;
+
     switch(movement) {
       case movements.left:
         block.points.forEach((point) => {
@@ -84,18 +86,18 @@ export class BoardState {
           this.state[point.y][point.x] = block;
         });
         break;
-        case movements.rotateCW:
-          block.points.forEach((point) => {
-            this.state[point.y][point.x] = null;
-          });
-          block.points.forEach((point) => {
-            let difx = point.x - block.rotationPoint.x;
-            let dify = point.y - block.rotationPoint.y;
-            point.x = (dify*(-1)) + block.rotationPoint.x;
-            point.y = difx + block.rotationPoint.y;
-            this.state[point.y][point.x] = block;
-          });
-          break;
+      case movements.rotateCW:
+        block.points.forEach((point) => {
+          this.state[point.y][point.x] = null;
+        });
+        block.points.forEach((point) => {
+          let difx = point.x - block.rotationPoint.x;
+          let dify = point.y - block.rotationPoint.y;
+          point.x = (dify*(-1)) + block.rotationPoint.x;
+          point.y = difx + block.rotationPoint.y;
+          this.state[point.y][point.x] = block;
+        });
+        break;
       case movements.softDrop:
         block.points.forEach((point)=> {
           this.state[point.y][point.x] = null;
@@ -140,6 +142,7 @@ export class BoardState {
     //drop all colored blocks down if space below them is white
     //add to that player's score that placed the last piece
   }
+
   /**
    * Checks if the given movement is valid.
    * @param {Block} block 
@@ -160,21 +163,23 @@ export class BoardState {
         });
       case movements.rotateCW:
         if (block.rotationPoint == null) return false;
-         return block.points.every((point) => {
+
+        return block.points.every((point) => {
           let difx = point.x - block.rotationPoint.x;
           let dify = point.y - block.rotationPoint.y;
+
           let phantomX = (dify*(-1)) + block.rotationPoint.x;
           let phantomY = difx + block.rotationPoint.y;
+
           if(phantomX > this.width - 1 || phantomY > this.height - 1 || phantomX < 0 || phantomY < 0) return false;
+
           const shiftedBlock = this.state[phantomY][phantomX];
           return (!shiftedBlock || shiftedBlock === block);
-         });
-        break;
+        });
       case movements.softDrop:
         return block.points.every((point)=> {
-          if(point.y >= this.height-1){
-            return false;
-          }
+          if(point.y >= this.height - 1) return false;
+
           const shiftedBlock = this.state[point.y + 1][point.x];
           return (!shiftedBlock || shiftedBlock === block);
         });
@@ -183,7 +188,6 @@ export class BoardState {
           const currentBlock = this.state[point.y][point.x];
           return (!currentBlock || currentBlock === block);
         });
-        break;
       // TODO: movements.rotateCCW
     }
     return false;
@@ -194,42 +198,42 @@ export class BoardState {
    * @param {number} pieceType 
    * @returns {number[]}
    */
-  getStartPoints(pieceType, queued) {
+  getStartPoints(pieceType, randomStart) {
     const points = [];
     let xs, ys;
-    let rand = Math.floor((Math.random() * 29));
-    if(queued) rand = 0;
+    let offset = randomStart ? Math.floor(Math.random() * (this.width - 2)) : 0;
+
     switch(pieceType) {
       case blockTypes.I:
-        xs = [0+rand, 0+rand, 0+rand, 0+rand];
+        xs = [0, 0, 0, 0].map((el) => el + offset);
         ys = [0, 1, 2, 3];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.O:
-        xs = [0+rand, 0+rand, 1+rand, 1+rand];
+        xs = [0, 0, 1, 1].map((el) => el + offset);
         ys = [0, 1, 0, 1];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.L:
-        xs = [0+rand, 0+rand, 0+rand, 1+rand];
+        xs = [0, 0, 0, 1].map((el) => el + offset);
         ys = [0, 1, 2, 2];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.S:
-        xs = [0+rand, 0+rand, 1+rand, 1+rand];
+        xs = [0, 0, 1, 1].map((el) => el + offset);
         ys = [0, 1, 1, 2];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
         });
         break;
       case blockTypes.T:
-        xs = [0+rand, 0+rand, 0+rand, 1+rand];
+        xs = [0, 0, 0, 1].map((el) => el + offset);
         ys = [0, 1, 2, 1];
         xs.forEach((_el, i) => {
           points.push(new Point(xs[i], ys[i]));
