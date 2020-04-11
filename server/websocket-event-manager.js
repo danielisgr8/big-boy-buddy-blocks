@@ -1,6 +1,6 @@
 const uuid = require("uuid");
 
-const events = require("../client/src/events");
+const events = require("../shared/src/events");
 
 class WebSocketEventManager {
   constructor(wss) {

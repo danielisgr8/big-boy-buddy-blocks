@@ -1,7 +1,7 @@
 import React,{ useRef, useEffect }from 'react';
 import Draw from "./draw";
-import { BoardState } from './board-state/board-state';
-import Mediator from './board-state/mediator';
+import { BoardState } from '../../shared/src/board-state/board-state';
+import Mediator from '../../shared/src/board-state/mediator';
 
 // TODO: make common Board component. Has displayOnly, as well as width and height (in number of cells) props
 export const SmallBoard = ({ color }) => {

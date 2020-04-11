@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
 const WebSocketEventManager = require("./websocket-event-manager");
-const events = require("../client/src/events");
+const events = require("../shared/src/events");
 const Player = require("./player");
 
 const port = 1234;

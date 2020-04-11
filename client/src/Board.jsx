@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from "react";
 import Draw from "./draw";
-import { BoardState, movements } from './board-state/board-state';
+import { BoardState, movements } from '../../shared/src/board-state/board-state';
 
-import events from "./events";
-import Mediator from './board-state/mediator';
+import events from "../../shared/src/events";
+import Mediator from '../../shared/src/board-state/mediator';
 
 const Board = ({wsem, color}) => {
   const canvasRef = useRef();

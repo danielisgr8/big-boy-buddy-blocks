@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Board from './Board';
 import UserUI from './UserUI';
 import WebSocketEventManager from "./websocket-event-manager";
-import events from "./events";
+import events from "../../shared/src/events";
 import './game.css';
 
 const Game = ({myName, myColor, local}) => {
