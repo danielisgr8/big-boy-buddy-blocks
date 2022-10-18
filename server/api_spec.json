@@ -1,12 +1,18 @@
 [
   {
-    "evenName": "c_join",
+    "eventName": "c_join",
     "parameters": [
       {
         "name": "name",
         "type": "string"
       }
     ]
+  },
+  {
+    "eventName": "c_start"
+  },
+  {
+    "eventName": "s_start"
   },
   {
     "eventName": "c_playerLeft"
@@ -30,19 +36,33 @@
     ]
   },
   {
-    "eventName": "s_updatePiece",
+    "eventName": "s_updatePieces",
     "source": "server",
     "parameters": [
       {
-        "name": "player",
-        "type": "string"
-      },
-      {
-        "name": "position",
+        "name": "pieces",
         "type": "array",
         "items": {
-          "type": "integer",
-          "description": "[x, y]"
+          "type": "object",
+          "properties": [
+            {
+              "name": "player",
+              "type": "string"
+            },
+            {
+              "name": "position",
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "description": "[x, y]"
+              }
+            },
+            {
+              "name": "force",
+              "type": "boolean",
+              "description": "If this is the player's piece and this value is `true`, the client MUST move its piece to these coordinates"
+            }
+          ]
         }
       }
     ]
